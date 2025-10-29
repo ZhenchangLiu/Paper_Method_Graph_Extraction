@@ -52,8 +52,8 @@ if st.sidebar.button("开始提取") and pdf_file and api_key:
     json_path = f"method_{timestamp}.json"
     try:
         json_data = json.loads(result)
-        # with open(json_path, "w", encoding="utf-8") as f:
-        #     json.dump(json_data, f, ensure_ascii=False, indent=2)
+        with open(json_path, "w", encoding="utf-8") as f:
+            json.dump(json_data, f, ensure_ascii=False, indent=2)
         st.download_button("📥 下载 JSON 结果", open(json_path, "rb"), file_name=json_path)
     except json.JSONDecodeError:
         st.error("❌ JSON 解析失败，显示原始输出：")
@@ -99,7 +99,7 @@ if st.sidebar.button("开始提取") and pdf_file and api_key:
         net.add_edge(u, v, title=rel, label=rel, color="#2d3436")
 
     html_path = f"method_{timestamp}.html"
-    # net.write_html(html_path)
+    net.write_html(html_path)
     st.success("✅ 图谱生成成功！")
 
     with open(html_path, "r", encoding="utf-8") as f:
@@ -108,3 +108,4 @@ if st.sidebar.button("开始提取") and pdf_file and api_key:
 
 else:
     st.warning("请在左侧上传 PDF 并输入 API Key 后点击“开始提取”")
+
